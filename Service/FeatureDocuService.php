@@ -8,10 +8,11 @@ use EFrane\ConsoleAdditions\FeatureDocu\Annotation\LivingDocumentationA;
 use EFrane\ConsoleAdditions\FeatureDocu\Service\StructureService;
 use EFrane\ConsoleAdditions\FeatureDocu\ValueObject\ListOnlyVO\ListListStructureClassVO;
 use EFrane\ConsoleAdditions\FeatureDocu\ValueObject\ListOnlyVO\ListLivingDocumentationVO;
+use StoryObject;
 use Symfony\Component\Intl\Exception\NotImplementedException;
 use Twig\Environment;
 
-class FeatureDocu
+class FeatureDocuService
 {
     private StructureService $structureService;
     private string $path;
@@ -43,7 +44,7 @@ class FeatureDocu
 
     static public function getDocuByKey(string $key)
     {
-        return new \StoryObject();
+        return new StoryObject();
     }
 
     public function analyze(): self

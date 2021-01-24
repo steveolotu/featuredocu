@@ -24,6 +24,7 @@ use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
+use UnexpectedValueException;
 
 class StructureService
 {
@@ -57,6 +58,42 @@ class StructureService
     public function __construct(Reader $reader)
     {
         $this->reader = $reader;
+    }
+
+    /**
+     * @throws ReflectionException
+     * @throws InvalidArgumentException
+     */
+    public function getListOfAllClassesInPath(string $path): ListListStructureClassVO
+    {
+        $paths = $this->getAllLegitSubPaths($path);
+        foreach ($paths as $path => $placeholder) {
+            $paths[$path] = $this->getClassesInPathWithoutSubdirectories($path);
+        }
+
+        return new ListListStructureClassVO($paths);
+    }
+
+    private function getAllLegitSubPaths(string $path): array
+    {
+        $nestedPaths = $this->recursivelyAddPathsToArray($path, []);
+
+        return $nestedPaths;
+    }
+
+    private function recursivelyAddPathsToArray(string $path, array $pathsArray): array
+    {
+        $pathsArray[$path] = true;
+
+        $subPaths = PhpHelperService::customScandir($path, false, true);
+        foreach ($subPaths as $subPath) {
+            $fullSubPath = $path . '/' . $subPath;
+            if (is_dir($fullSubPath)) {
+                $pathsArray = $this->recursivelyAddPathsToArray($fullSubPath, $pathsArray);
+            }
+        }
+
+        return $pathsArray;
     }
 
     /**
@@ -100,7 +137,7 @@ class StructureService
         $namespace = PhpHelperService::getNamespaceFromFile($completePath);
         $completeClassName = $namespace . '\\' . $shortClassName;
         if ('' === $shortClassName) {
-            throw new \UnexpectedValueException(sprintf(
+            throw new UnexpectedValueException(sprintf(
                 'There was no class found in file "%s".',
                 $file
             ));
@@ -263,144 +300,6 @@ class StructureService
     /**
      * @throws InvalidArgumentException
      */
-    private function filterByClassAnnotations(
-        ListStructureClassVO $classes,
-        string $annotationName,
-        string $filterByAnnotationName = null,
-        string $filterByAnnotationValue = null
-    ): ListStructureClassVO
-    {
-        $classesWithAnnotations = new ListStructureClassVO();
-        foreach ($classes->toArray() as $dpaClass) {
-            if (
-                $this->classHasAnnotation($dpaClass, $annotationName, $filterByAnnotationName, $filterByAnnotationValue)
-            ) {
-                $classesWithAnnotations->addOneToList($dpaClass);
-            }
-        }
-
-        return $classesWithAnnotations;
-    }
-
-    private function classHasAnnotation(
-        StructureClassVO $dpaClass,
-        string $annotationName,
-        string $filterByAnnotationName = null,
-        string $filterByAnnotationValue = null
-    ): bool
-    {
-        $annotation = $this->getClassAnnotation(
-            $dpaClass->getReflectionItem(),
-            $annotationName
-        );
-        if ($annotation instanceof InterfaceA and
-            !$this->skipAnnotation($annotation, $filterByAnnotationName, $filterByAnnotationValue)
-        ) {
-            return true;
-        }
-        return false;
-    }
-
-    private function getClassAnnotation(ReflectionClass $reflectionClass, string $annotationName)
-    {
-        return $this->reader->getClassAnnotation(
-            $reflectionClass,
-            $annotationName
-        );
-    }
-
-    private function skipAnnotation(
-        InterfaceA $annotation,
-        ?string $filterByAnnotationName,
-        ?string $filterByAnnotationValue
-    ): bool
-    {
-        // Only skip in two cases: Name-Filter is active and...
-        if (null !== $filterByAnnotationName) {
-            // ...and property of name is not set...
-            if (!$annotation->isSet($filterByAnnotationName)){
-                return true;
-            }
-            // ...or if the property is set, the Value-Filter is active but the value is not as expected.
-            if (null !== $filterByAnnotationValue and $annotation->get($filterByAnnotationName) !== $filterByAnnotationValue){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    private function filterByInterface(ListStructureClassVO $list, string $interfaceClass): ListStructureClassVO
-    {
-        $filteredList = new ListStructureClassVO();
-        foreach ($list->toArray() as $structureClassVO) {
-            $interfaceNames = $structureClassVO->getReflectionItem()->getInterfaceNames();
-            if (in_array($interfaceClass, $interfaceNames)) {
-                $filteredList->addOneToList($structureClassVO);
-            }
-        }
-
-        return $filteredList;
-    }
-
-    /**
-     * @throws ReflectionException
-     * @throws InvalidArgumentException
-     */
-    public function getListOfAllClassesInPath(string $path): ListListStructureClassVO
-    {
-        $paths = $this->getAllLegitSubPaths($path);
-        foreach ($paths as $path => $placeholder) {
-            $paths[$path] = $this->getClassesInPathWithoutSubdirectories($path);
-        }
-
-        return new ListListStructureClassVO($paths);
-    }
-
-    private function getAllLegitSubPaths(string $path): array
-    {
-        $nestedPaths = $this->recursivelyAddPathsToArray($path, []);
-
-        return $nestedPaths;
-    }
-
-    private function recursivelyAddPathsToArray(string $path, array $pathsArray): array
-    {
-        $pathsArray[$path] = true;
-
-        $subPaths = PhpHelperService::customScandir($path, false, true);
-        foreach ($subPaths as $subPath) {
-            $fullSubPath = $path . '/' . $subPath;
-            if (is_dir($fullSubPath)) {
-                $pathsArray = $this->recursivelyAddPathsToArray($fullSubPath, $pathsArray);
-            }
-        }
-
-        return $pathsArray;
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    private function getClassesOfComponentBackup(ListListStructureClassVO $dpaClassesList): ListStructureClassVO
-    {
-        $filteredDpaClasses = new ListStructureClassVO();
-        foreach ($dpaClassesList->toArray() as $path => $dpaClasses) {
-            $filteredDpaClasses->addArrayToList($this->filterByClassAnnotations(
-                $dpaClasses,
-                BackupA::class,
-                BackupA::KEY_TYPE,
-            )->toArray());
-        }
-
-        return $filteredDpaClasses;
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
     public function compileListOfEverythingWithAnnotation(
         ListListStructureClassVO $listListStructureClassVO,
         $filterArray
@@ -543,5 +442,107 @@ class StructureService
     public function getRealClassNameEvenFromProxy(object $entityObject): string
     {
         return ClassUtils::getRealClass(get_class($entityObject));
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    private function filterByInterface(ListStructureClassVO $list, string $interfaceClass): ListStructureClassVO
+    {
+        $filteredList = new ListStructureClassVO();
+        foreach ($list->toArray() as $structureClassVO) {
+            $interfaceNames = $structureClassVO->getReflectionItem()->getInterfaceNames();
+            if (in_array($interfaceClass, $interfaceNames)) {
+                $filteredList->addOneToList($structureClassVO);
+            }
+        }
+
+        return $filteredList;
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    private function getClassesOfComponentBackup(ListListStructureClassVO $dpaClassesList): ListStructureClassVO
+    {
+        $filteredDpaClasses = new ListStructureClassVO();
+        foreach ($dpaClassesList->toArray() as $path => $dpaClasses) {
+            $filteredDpaClasses->addArrayToList($this->filterByClassAnnotations(
+                $dpaClasses,
+                BackupA::class,
+                BackupA::KEY_TYPE,
+            )->toArray());
+        }
+
+        return $filteredDpaClasses;
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    private function filterByClassAnnotations(
+        ListStructureClassVO $classes,
+        string $annotationName,
+        string $filterByAnnotationName = null,
+        string $filterByAnnotationValue = null
+    ): ListStructureClassVO
+    {
+        $classesWithAnnotations = new ListStructureClassVO();
+        foreach ($classes->toArray() as $dpaClass) {
+            if (
+                $this->classHasAnnotation($dpaClass, $annotationName, $filterByAnnotationName, $filterByAnnotationValue)
+            ) {
+                $classesWithAnnotations->addOneToList($dpaClass);
+            }
+        }
+
+        return $classesWithAnnotations;
+    }
+
+    private function classHasAnnotation(
+        StructureClassVO $dpaClass,
+        string $annotationName,
+        string $filterByAnnotationName = null,
+        string $filterByAnnotationValue = null
+    ): bool
+    {
+        $annotation = $this->getClassAnnotation(
+            $dpaClass->getReflectionItem(),
+            $annotationName
+        );
+        if ($annotation instanceof InterfaceA and
+            !$this->skipAnnotation($annotation, $filterByAnnotationName, $filterByAnnotationValue)
+        ) {
+            return true;
+        }
+        return false;
+    }
+
+    private function getClassAnnotation(ReflectionClass $reflectionClass, string $annotationName)
+    {
+        return $this->reader->getClassAnnotation(
+            $reflectionClass,
+            $annotationName
+        );
+    }
+
+    private function skipAnnotation(
+        InterfaceA $annotation,
+        ?string $filterByAnnotationName,
+        ?string $filterByAnnotationValue
+    ): bool
+    {
+        // Only skip in two cases: Name-Filter is active and...
+        if (null !== $filterByAnnotationName) {
+            // ...and property of name is not set...
+            if (!$annotation->isSet($filterByAnnotationName)){
+                return true;
+            }
+            // ...or if the property is set, the Value-Filter is active but the value is not as expected.
+            if (null !== $filterByAnnotationValue and $annotation->get($filterByAnnotationName) !== $filterByAnnotationValue){
+                return true;
+            }
+        }
+        return false;
     }
 }
