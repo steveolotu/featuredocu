@@ -1,8 +1,8 @@
 <?php
 
-namespace EFrane\ConsoleAdditions\FeatureDocu\Annotation;
+namespace SteveOlotu\FeatureDocu\Annotation;
 
-use EFrane\ConsoleAdditions\FeatureDocu\ValueObject\DpaPages\BackupDpa;
+use SteveOlotu\FeatureDocu\ValueObject\DpaPages\BackupDpa;
 
 /**
  * @Annotation

@@ -1,8 +1,8 @@
 <?php
 
-namespace EFrane\ConsoleAdditions\FeatureDocu\ValueObject\ListOnlyVO;
+namespace SteveOlotu\FeatureDocu\ValueObject\ListOnlyVO;
 
-use EFrane\ConsoleAdditions\FeatureDocu\ValueObject\ContentLineVO;
+use SteveOlotu\FeatureDocu\ValueObject\ContentLineVO;
 
 class ListContentLineVO extends AbstractListVO
 {

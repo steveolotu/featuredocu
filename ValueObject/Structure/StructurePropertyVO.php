@@ -1,6 +1,6 @@
 <?php
 
-namespace EFrane\ConsoleAdditions\FeatureDocu\ValueObject\Structure;
+namespace SteveOlotu\FeatureDocu\ValueObject\Structure;
 
 use ReflectionProperty;
 

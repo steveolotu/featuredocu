@@ -1,9 +1,9 @@
 <?php
 
-namespace EFrane\ConsoleAdditions\FeatureDocu\ValueObject\ListOnlyVO;
+namespace SteveOlotu\FeatureDocu\ValueObject\ListOnlyVO;
 
-use EFrane\ConsoleAdditions\FeatureDocu\Exceptions\NonExistentObjectException;
-use EFrane\ConsoleAdditions\FeatureDocu\ValueObject\DpaPages\DpaInterface;
+use SteveOlotu\FeatureDocu\Exceptions\NonExistentObjectException;
+use SteveOlotu\FeatureDocu\ValueObject\DpaPages\DpaInterface;
 
 class ListDpaInterfaceVO extends AbstractListVO
 {

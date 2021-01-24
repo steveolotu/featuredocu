@@ -1,21 +1,22 @@
 <?php
 
-namespace EFrane\ConsoleAdditions\FeatureDocu\Service;
+namespace SteveOlotu\FeatureDocu\Service;
 
 use Doctrine\Common\Annotations\Reader;
 use Doctrine\Common\Util\ClassUtils;
-use EFrane\ConsoleAdditions\FeatureDocu\Annotation\AbstractCoreA;
-use EFrane\ConsoleAdditions\FeatureDocu\Annotation\InterfaceA;
-use EFrane\ConsoleAdditions\FeatureDocu\ValueObject\ListOnlyVO\ListAnnotationVO;
-use EFrane\ConsoleAdditions\FeatureDocu\ValueObject\ListOnlyVO\ListListStructureClassVO;
-use EFrane\ConsoleAdditions\FeatureDocu\ValueObject\ListOnlyVO\ListLivingDocumentationVO;
-use EFrane\ConsoleAdditions\FeatureDocu\ValueObject\ListOnlyVO\ListStructureClassVO;
-use EFrane\ConsoleAdditions\FeatureDocu\ValueObject\ListOnlyVO\ListStructureMethodVO;
-use EFrane\ConsoleAdditions\FeatureDocu\ValueObject\ListOnlyVO\ListStructurePropertyVO;
-use EFrane\ConsoleAdditions\FeatureDocu\ValueObject\Structure\StructureClassVO;
-use EFrane\ConsoleAdditions\FeatureDocu\ValueObject\Structure\StructureMethodVO;
-use EFrane\ConsoleAdditions\FeatureDocu\ValueObject\Structure\StructurePropertyVO;
-use EFrane\ConsoleAdditions\FeatureDocu\ValueObject\Structure\StructureVOInterface;
+use SteveOlotu\FeatureDocu\Annotation\AbstractCoreA;
+use SteveOlotu\FeatureDocu\Annotation\InterfaceA;
+use SteveOlotu\FeatureDocu\Exceptions\InvalidArgumentException;
+use SteveOlotu\FeatureDocu\ValueObject\ListOnlyVO\ListAnnotationVO;
+use SteveOlotu\FeatureDocu\ValueObject\ListOnlyVO\ListListStructureClassVO;
+use SteveOlotu\FeatureDocu\ValueObject\ListOnlyVO\ListLivingDocumentationVO;
+use SteveOlotu\FeatureDocu\ValueObject\ListOnlyVO\ListStructureClassVO;
+use SteveOlotu\FeatureDocu\ValueObject\ListOnlyVO\ListStructureMethodVO;
+use SteveOlotu\FeatureDocu\ValueObject\ListOnlyVO\ListStructurePropertyVO;
+use SteveOlotu\FeatureDocu\ValueObject\Structure\StructureClassVO;
+use SteveOlotu\FeatureDocu\ValueObject\Structure\StructureMethodVO;
+use SteveOlotu\FeatureDocu\ValueObject\Structure\StructurePropertyVO;
+use SteveOlotu\FeatureDocu\ValueObject\Structure\StructureVOInterface;
 use ReflectionClass;
 use ReflectionException;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -28,31 +29,6 @@ use UnexpectedValueException;
 
 class StructureService
 {
-    public const RETURN_TYPE_ACTION_TYPE_DATETIME = 'datetime';
-    public const RETURN_TYPE_ACTION_TYPE_DOCTRINE_COLLECTION = 'doctrineCollection';
-    public const RETURN_TYPE_ACTION_TYPE_DIRECT = 'direct';
-    public const RETURN_TYPE_ACTION_TYPE_ENTITY = 'entity';
-    public const RETURN_TYPE_ACTION_TYPE_UUID = 'uuid';
-    public const RETURN_TYPE_ACTION_TYPE_MAPPING = [
-        'string' => self::RETURN_TYPE_ACTION_TYPE_DIRECT,
-        'bool' => self::RETURN_TYPE_ACTION_TYPE_DIRECT,
-        'Doctrine\Common\Collections\Collection' => self::RETURN_TYPE_ACTION_TYPE_DOCTRINE_COLLECTION,
-        'DateTimeInterface' => self::RETURN_TYPE_ACTION_TYPE_DATETIME,
-        'float' => self::RETURN_TYPE_ACTION_TYPE_DIRECT,
-        'int' => self::RETURN_TYPE_ACTION_TYPE_DIRECT,
-        'self' => self::RETURN_TYPE_ACTION_TYPE_ENTITY,
-        'Ramsey\Uuid\UuidInterface' => self::RETURN_TYPE_ACTION_TYPE_UUID,
-    ];
-    private const FILE_BLACKLIST = [
-        'Kernel.php',
-    ];
-    public const PATH_SRC = '/src';
-    public const PATH_ANNOTATION = self::PATH_SRC . '/Annotation';
-    public const PATH_DPA = self::PATH_SRC . '/ValueObject/DpaPages';
-    public const PATH_SERVICES = self::PATH_SRC . '/Service';
-    public const PATH_ENTITIES = self::PATH_SRC . '/Entity';
-    public const PATH_SCRUTINY = self::PATH_SERVICES . '/Scrutiny';
-
     public Reader $reader;
 
     public function __construct(Reader $reader)
@@ -370,178 +346,6 @@ class StructureService
                 $getter,
                 get_class($annotation)
             ));
-        }
-        return false;
-    }
-
-    /**
-     * @throws LoaderError
-     * @throws RuntimeError
-     * @throws SyntaxError
-     */
-    public function getAnnotationSectionInDpa(string $annotationClassName): string
-    {
-        $content = call_user_func($annotationClassName . '::getAnnotationReadme');
-        return $this->twig->render(
-            'documentation/dpaCustomContent/annotationReadmeSection.twig',
-            [
-                'annotationClassName' => PhpHelperService::extractShortNameFromFullClassName($annotationClassName),
-                'content' => $content,
-            ]
-        );
-    }
-
-    /**p
-     * @throws InvalidArgumentException
-     */
-    public function findGetterOfProperty(StructurePropertyVO $propertyVO): StructureMethodVO
-    {
-        $reflectionClass = $propertyVO->getReflectionItem()->getDeclaringClass();
-        $propertyName = $propertyVO->getNameShort();
-        foreach ($reflectionClass->getMethods() as $iteratedMethod) {
-            $name = $iteratedMethod->getName();
-            if (in_array($name, ['get' . ucfirst($propertyName), 'is' . ucfirst($propertyName)])) {
-                $methodVO = new StructureMethodVO();
-                $methodVO->populateStructureClassFromReflection($iteratedMethod);
-                return $methodVO;
-            }
-        }
-        throw new NotImplementedException(sprintf(
-            'The algorithm didn\'t yield any result regarding the property getter name of "%s" in class "%s".',
-            $propertyName,
-            $reflectionClass->getName()
-        ));
-    }
-
-    public function findGetterActionTypeOfProperty(StructureMethodVO $methodVO): string
-    {
-        $returnType = $methodVO->getReflectionItem()->getReturnType();
-        if (null == $returnType) {
-            throw new NotImplementedException(sprintf(
-                'No return type set for method "%s" of class "%s".',
-                $methodVO->getNameShort(),
-                $methodVO->getStructureClassVO()->getNameShort()
-            ));
-        }
-        $returnTypeString = $returnType->getName();
-        if (array_key_exists($returnTypeString, self::RETURN_TYPE_ACTION_TYPE_MAPPING)) {
-            return self::RETURN_TYPE_ACTION_TYPE_MAPPING[$returnTypeString];
-        }
-        foreach ($methodVO->getStructureClassVO()->getReflectionItem()->getInterfaces() as $interfaceReflectionClass) {
-            if (BackupEntityInterface::class === $interfaceReflectionClass->getName()) {
-                return self::RETURN_TYPE_ACTION_TYPE_ENTITY;
-            }
-        }
-        throw new NotImplementedException(sprintf(
-            'The action type "%s" for the method "%s" is not implemented yet, please do so.',
-            $returnTypeString,
-            $methodVO->getNameShort()
-        ));
-    }
-
-    public function getRealClassNameEvenFromProxy(object $entityObject): string
-    {
-        return ClassUtils::getRealClass(get_class($entityObject));
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    private function filterByInterface(ListStructureClassVO $list, string $interfaceClass): ListStructureClassVO
-    {
-        $filteredList = new ListStructureClassVO();
-        foreach ($list->toArray() as $structureClassVO) {
-            $interfaceNames = $structureClassVO->getReflectionItem()->getInterfaceNames();
-            if (in_array($interfaceClass, $interfaceNames)) {
-                $filteredList->addOneToList($structureClassVO);
-            }
-        }
-
-        return $filteredList;
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    private function getClassesOfComponentBackup(ListListStructureClassVO $dpaClassesList): ListStructureClassVO
-    {
-        $filteredDpaClasses = new ListStructureClassVO();
-        foreach ($dpaClassesList->toArray() as $path => $dpaClasses) {
-            $filteredDpaClasses->addArrayToList($this->filterByClassAnnotations(
-                $dpaClasses,
-                BackupA::class,
-                BackupA::KEY_TYPE,
-            )->toArray());
-        }
-
-        return $filteredDpaClasses;
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    private function filterByClassAnnotations(
-        ListStructureClassVO $classes,
-        string $annotationName,
-        string $filterByAnnotationName = null,
-        string $filterByAnnotationValue = null
-    ): ListStructureClassVO
-    {
-        $classesWithAnnotations = new ListStructureClassVO();
-        foreach ($classes->toArray() as $dpaClass) {
-            if (
-                $this->classHasAnnotation($dpaClass, $annotationName, $filterByAnnotationName, $filterByAnnotationValue)
-            ) {
-                $classesWithAnnotations->addOneToList($dpaClass);
-            }
-        }
-
-        return $classesWithAnnotations;
-    }
-
-    private function classHasAnnotation(
-        StructureClassVO $dpaClass,
-        string $annotationName,
-        string $filterByAnnotationName = null,
-        string $filterByAnnotationValue = null
-    ): bool
-    {
-        $annotation = $this->getClassAnnotation(
-            $dpaClass->getReflectionItem(),
-            $annotationName
-        );
-        if ($annotation instanceof InterfaceA and
-            !$this->skipAnnotation($annotation, $filterByAnnotationName, $filterByAnnotationValue)
-        ) {
-            return true;
-        }
-        return false;
-    }
-
-    private function getClassAnnotation(ReflectionClass $reflectionClass, string $annotationName)
-    {
-        return $this->reader->getClassAnnotation(
-            $reflectionClass,
-            $annotationName
-        );
-    }
-
-    private function skipAnnotation(
-        InterfaceA $annotation,
-        ?string $filterByAnnotationName,
-        ?string $filterByAnnotationValue
-    ): bool
-    {
-        // Only skip in two cases: Name-Filter is active and...
-        if (null !== $filterByAnnotationName) {
-            // ...and property of name is not set...
-            if (!$annotation->isSet($filterByAnnotationName)){
-                return true;
-            }
-            // ...or if the property is set, the Value-Filter is active but the value is not as expected.
-            if (null !== $filterByAnnotationValue and $annotation->get($filterByAnnotationName) !== $filterByAnnotationValue){
-                return true;
-            }
         }
         return false;
     }

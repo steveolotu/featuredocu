@@ -1,6 +1,6 @@
 <?php
 
-namespace EFrane\ConsoleAdditions\FeatureDocu\ValueObject;
+namespace SteveOlotu\FeatureDocu\ValueObject;
 
 class StoryObject
 {

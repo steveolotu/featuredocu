@@ -1,10 +1,10 @@
 <?php
 
-namespace EFrane\ConsoleAdditions\FeatureDocu\ValueObject\ListOnlyVO;
+namespace SteveOlotu\FeatureDocu\ValueObject\ListOnlyVO;
 
-use EFrane\ConsoleAdditions\FeatureDocu\Annotation\InterfaceA;
-use EFrane\ConsoleAdditions\FeatureDocu\Exceptions\InvalidArgumentException;
-use EFrane\ConsoleAdditions\FeatureDocu\Service\PhpHelperService;
+use SteveOlotu\FeatureDocu\Annotation\InterfaceA;
+use SteveOlotu\FeatureDocu\Exceptions\InvalidArgumentException;
+use SteveOlotu\FeatureDocu\Service\PhpHelperService;
 
 class ListAnnotationVO extends AbstractListVO
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace EFrane\ConsoleAdditions\FeatureDocu\ValueObject\ListOnlyVO;
+namespace SteveOlotu\FeatureDocu\ValueObject\ListOnlyVO;
 
-use EFrane\ConsoleAdditions\FeatureDocu\Entity\Friends\Interaction;
+use SteveOlotu\FeatureDocu\Entity\Friends\Interaction;
 
 class ListInteractionVO extends AbstractListVO
 {

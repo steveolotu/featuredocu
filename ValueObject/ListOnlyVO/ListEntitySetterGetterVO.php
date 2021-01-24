@@ -1,8 +1,8 @@
 <?php
 
-namespace EFrane\ConsoleAdditions\FeatureDocu\ValueObject\ListOnlyVO;
+namespace SteveOlotu\FeatureDocu\ValueObject\ListOnlyVO;
 
-use EFrane\ConsoleAdditions\FeatureDocu\ValueObject\Backup\EntitySetterGetterVO;
+use SteveOlotu\FeatureDocu\ValueObject\Backup\EntitySetterGetterVO;
 
 class ListEntitySetterGetterVO extends AbstractListVO
 {

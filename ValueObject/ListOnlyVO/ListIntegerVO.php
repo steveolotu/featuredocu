@@ -1,8 +1,8 @@
 <?php
 
-namespace EFrane\ConsoleAdditions\FeatureDocu\ValueObject\ListOnlyVO;
+namespace SteveOlotu\FeatureDocu\ValueObject\ListOnlyVO;
 
-use EFrane\ConsoleAdditions\FeatureDocu\Exceptions\InvalidArgumentException;
+use SteveOlotu\FeatureDocu\Exceptions\InvalidArgumentException;
 
 class ListIntegerVO extends AbstractListVO
 {

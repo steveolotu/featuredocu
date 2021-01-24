@@ -1,8 +1,8 @@
 <?php
 
-namespace EFrane\ConsoleAdditions\FeatureDocu\ValueObject\ListOnlyVO;
+namespace SteveOlotu\FeatureDocu\ValueObject\ListOnlyVO;
 
-use EFrane\ConsoleAdditions\FeatureDocu\ValueObject\Structure\StructureClassVO;
+use SteveOlotu\FeatureDocu\ValueObject\Structure\StructureClassVO;
 
 class ListStructureClassVO extends AbstractListVO
 {

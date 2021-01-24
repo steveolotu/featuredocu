@@ -2,6 +2,8 @@
 
 ## What it does
 
+- Auto-generates documentation from specific annotations.
+
 ### Problem 1: Spread out features
 
 The truth is in the code, sure, but the code is oftentimes spread out across many files and folders. One business logic feature can be based on various different areas in the code. This is especially problematic if code is used, which is difficult to trace, for example if a class, method or property is called dynamically and hence difficult to find via searching.
@@ -17,6 +19,8 @@ Documentation is work, usually associated with a context switch and oftentimes o
 To solve these problems, this library uses annotations to auto-generate up-to-date documentation in an appealing format and present it all in one place. It is sourced from bits and pieces spread out across the code. The documentation happens where the code happens. This enables developers to let documentation become part of their coding work without switching context.
 
 ## Installation
+
+- Build for use in Symfony 5.2, compatibility with other software is uncertain.
 
 ### (Optional) Register Twig template
 
@@ -40,7 +44,7 @@ After:
         default_path: '%kernel.project_dir%/templates'
         paths:
             - '%kernel.project_dir%/templates'
-            - '%kernel.project_dir%/vendor/efrane/console-additions/src/FeatureDocu/Twig'
+            - '%kernel.project_dir%/vendor/steveolotu/featuredocu/Twig'
         ...
 
 ## Usage

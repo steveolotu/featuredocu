@@ -1,10 +1,10 @@
 <?php
 
-namespace EFrane\ConsoleAdditions\FeatureDocu\ValueObject\ListOnlyVO;
+namespace SteveOlotu\FeatureDocu\ValueObject\ListOnlyVO;
 
-use EFrane\ConsoleAdditions\FeatureDocu\Annotation\LivingDocumentationA;
-use EFrane\ConsoleAdditions\FeatureDocu\Exceptions\InvalidArgumentException;
-use EFrane\ConsoleAdditions\FeatureDocu\ValueObject\LivingDocumentationVO;
+use SteveOlotu\FeatureDocu\Annotation\LivingDocumentationA;
+use SteveOlotu\FeatureDocu\Exceptions\InvalidArgumentException;
+use SteveOlotu\FeatureDocu\ValueObject\LivingDocumentationVO;
 
 class ListLivingDocumentationVO extends AbstractListVO
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace EFrane\ConsoleAdditions\FeatureDocu\ValueObject\ListOnlyVO;
+namespace SteveOlotu\FeatureDocu\ValueObject\ListOnlyVO;
 
-use EFrane\ConsoleAdditions\FeatureDocu\ValueObject\Structure\StructureClassVO;
-use EFrane\ConsoleAdditions\FeatureDocu\ValueObject\Structure\StructurePropertyVO;
+use SteveOlotu\FeatureDocu\ValueObject\Structure\StructureClassVO;
+use SteveOlotu\FeatureDocu\ValueObject\Structure\StructurePropertyVO;
 
 class ListStructurePropertyVO extends AbstractListVO
 {

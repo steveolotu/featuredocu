@@ -1,9 +1,9 @@
 <?php
 
-namespace EFrane\ConsoleAdditions\FeatureDocu\ValueObject\Structure;
+namespace SteveOlotu\FeatureDocu\ValueObject\Structure;
 
-use EFrane\ConsoleAdditions\FeatureDocu\ValueObject\ListOnlyVO\ListStructureMethodVO;
-use EFrane\ConsoleAdditions\FeatureDocu\ValueObject\ListOnlyVO\ListStructurePropertyVO;
+use SteveOlotu\FeatureDocu\ValueObject\ListOnlyVO\ListStructureMethodVO;
+use SteveOlotu\FeatureDocu\ValueObject\ListOnlyVO\ListStructurePropertyVO;
 use ReflectionClass;
 
 class StructureClassVO extends AbstractStructureVO

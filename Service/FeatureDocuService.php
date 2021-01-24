@@ -1,13 +1,13 @@
 <?php
 
-namespace EFrane\ConsoleAdditions\FeatureDocu;
+namespace SteveOlotu\FeatureDocu;
 
 use Doctrine\Common\Annotations\Reader;
-use EFrane\ConsoleAdditions\FeatureDocu\Annotation\AbstractCoreA;
-use EFrane\ConsoleAdditions\FeatureDocu\Annotation\LivingDocumentationA;
-use EFrane\ConsoleAdditions\FeatureDocu\Service\StructureService;
-use EFrane\ConsoleAdditions\FeatureDocu\ValueObject\ListOnlyVO\ListListStructureClassVO;
-use EFrane\ConsoleAdditions\FeatureDocu\ValueObject\ListOnlyVO\ListLivingDocumentationVO;
+use SteveOlotu\FeatureDocu\Annotation\AbstractCoreA;
+use SteveOlotu\FeatureDocu\Annotation\LivingDocumentationA;
+use SteveOlotu\FeatureDocu\Service\StructureService;
+use SteveOlotu\FeatureDocu\ValueObject\ListOnlyVO\ListListStructureClassVO;
+use SteveOlotu\FeatureDocu\ValueObject\ListOnlyVO\ListLivingDocumentationVO;
 use StoryObject;
 use Symfony\Component\Intl\Exception\NotImplementedException;
 use Twig\Environment;

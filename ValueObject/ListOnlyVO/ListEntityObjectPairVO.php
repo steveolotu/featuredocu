@@ -1,8 +1,8 @@
 <?php
 
-namespace EFrane\ConsoleAdditions\FeatureDocu\ValueObject\ListOnlyVO;
+namespace SteveOlotu\FeatureDocu\ValueObject\ListOnlyVO;
 
-use EFrane\ConsoleAdditions\FeatureDocu\ValueObject\Backup\ItemPairVO;
+use SteveOlotu\FeatureDocu\ValueObject\Backup\ItemPairVO;
 
 class ListEntityObjectPairVO extends AbstractListVO
 {
