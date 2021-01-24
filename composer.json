@@ -7,6 +7,7 @@
   ],
   "require": {
     "doctrine/annotations": "^1.11",
+    "php": ">=7.4",
     "symfony/twig-pack": "1.*"
   },
   "require-dev": {
@@ -18,7 +19,7 @@
       "email": "mail@steveolotu.com"
     }
   ],
-  "minimum-stability": "stable",
+  "minimum-stability": "dev",
   "autoload": {
     "psr-4": {
       "SteveOlotu\\FeatureDoco\\": ""
