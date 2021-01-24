@@ -2,11 +2,8 @@
 
 namespace EFrane\ConsoleAdditions\FeatureDocu\Service;
 
-use EFrane\ConsoleAdditions\FeatureDocu\Exceptions\InvalidArgumentException;
-use EFrane\ConsoleAdditions\FeatureDocu\Exceptions\WrongVariableTypeException;
-use DateTime;
+use EFrane\ConsoleAdditions\FeatureDocu\Exceptions\FileComplicationException;
 use Doctrine\Common\Util\ClassUtils;
-use UnexpectedValueException;
 
 class PhpHelperService
 {
@@ -39,18 +36,6 @@ class PhpHelperService
         return $substring === $extension;
     }
 
-    static public function filterByClassType(array $arrayOfObjects, string $desiredClassType): array
-    {
-        $filteredArray = [];
-        foreach ($arrayOfObjects as $object) {
-            if (self::isClassTypeOrImplementationOrExtension($object, $desiredClassType)) {
-                $filteredArray[] = $object;
-            }
-        }
-
-        return $filteredArray;
-    }
-
     static public function isClassTypeOrImplementationOrExtension(object $object, string $desiredClassType): bool
     {
         return self::isClassType($object, $desiredClassType) or self::classImplements($object, $desiredClassType);
@@ -68,45 +53,9 @@ class PhpHelperService
         return in_array($desiredClassType, $implementedInterfaces);
     }
 
-    static public function isInterfaceOrAbstract(string $classType): bool
-    {
-        foreach (['Interface', 'Abstract'] as $item) {
-            if (false !== strpos($classType, $item)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    static public function ensureCorrectType($providedObject, $expectedClass)
-    {
-        if (!PhpHelperService::isClassTypeOrImplementationOrExtension($providedObject, $expectedClass)) {
-            throw new InvalidArgumentException(sprintf(
-                'Got "%s", expected "%s".',
-                get_class($providedObject),
-                $expectedClass
-            ));
-        }
-    }
-
     public static function extractShortNameFromFullClassName(string $fullClassName): string
     {
         return array_slice(explode('\\', $fullClassName), -1)[0];
-    }
-
-    static public function implode(array $array): string
-    {
-        return implode('<br />', $array);
-    }
-
-    static public function ensureThatDatabasesAreReachable(array $tables)
-    {
-        if (0 === count($tables)) {
-            throw new UnexpectedValueException('No tables available, probably no connection to database.');
-        }
     }
 
     /**
@@ -125,120 +74,6 @@ class PhpHelperService
             }
         }
         rmdir($dir);
-    }
-
-    static public function deleteFolderAndContentsRecursively(string $tempDirectory, string $tempSubfolder = '')
-    {
-        $path = $tempDirectory . $tempSubfolder;
-        self::recursivelyDeleteFolderAndContents($path);
-    }
-
-    /**
-     * Based on https://stackoverflow.com/questions/6041741/fastest-way-to-check-if-a-string-is-json-in-php
-     */
-    static public function isJson($string): bool
-    {
-        json_decode($string);
-
-        return (json_last_error() === JSON_ERROR_NONE);
-    }
-
-    public static function hashArray($array): string
-    {
-        return md5(json_encode($array));
-    }
-
-    public static function getPercentage(float $absoluteShare, float $total): string
-    {
-        return round($absoluteShare / $total * 100, 1);
-    }
-
-    /**
-     * Based on https://stackoverflow.com/questions/4128323/in-array-and-multidimensional-array
-     */
-    function in_array_recursive(string $needle, array $haystack): bool
-    {
-        foreach ($haystack as $item) {
-            if ($item === $needle || (is_array($item) && self::in_array_recursive($needle, $item))) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * @see https://stackoverflow.com/questions/18857507/convert-datetime-into-time-ago
-     */
-    static public function calculateTimeAgo(DateTime $dateTime): string
-    {
-        $now = new DateTime();
-        $delta = $now->diff($dateTime);
-
-        $quantities = array(
-            'year' => $delta->y,
-            'month' => $delta->m,
-            'day' => $delta->d,
-            'hour' => $delta->h,
-            'minute' => $delta->i,
-            'second' => $delta->s);
-
-        $str = '';
-        foreach($quantities as $unit => $value) {
-            if($value == 0) continue;
-            $str .= $value . ' ' . $unit;
-            if($value != 1) {
-                $str .= 's';
-            }
-            $str .=  ', ';
-        }
-        $str = $str == '' ? 'a moment ' : substr($str, 0, -2);
-
-        return $str;
-    }
-
-    static public function cutOffSuffix(string $fullString, string $suffix)
-    {
-        return substr($fullString, 0, strlen($fullString) - strlen($suffix));
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    static public function ensureThatMethodExists(object $item, string $method): void
-    {
-        if (!method_exists($item, $method)) {
-            throw new InvalidArgumentException(sprintf(
-                'Object %s does not have a method called "%s".',
-                get_class($item),
-                $method
-            ));
-        }
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     * @throws WrongVariableTypeException
-     */
-    static public function sortByPropertyGetter(string $propertyGetter, array $arrayOfObjects): array
-    {
-        if (0 === count($arrayOfObjects)) {
-            return [];
-        }
-        $firstObject = array_values($arrayOfObjects)[0];
-        if (!is_object($firstObject)) {
-            throw new WrongVariableTypeException(sprintf(
-                'Got array with elements of type "%s", expected object.',
-                get_resource_type($firstObject)
-            ));
-        }
-        self::ensureThatMethodExists($firstObject, $propertyGetter);
-
-        uasort($arrayOfObjects, static function($a, $b) use ($propertyGetter){
-            return strcasecmp($a->$propertyGetter(), $b->$propertyGetter()) < 0 ? -1 : 1;
-        });
-
-        return $arrayOfObjects;
     }
 
     /**
@@ -264,6 +99,8 @@ class PhpHelperService
 
     /**
      * Based on, but modified: https://stackoverflow.com/questions/7153000/get-class-name-from-file
+     *
+     * @throws FileComplicationException
      */
     static public function getClassNameFromFile(string $file): string
     {
@@ -287,6 +124,6 @@ class PhpHelperService
                 }
             }
         }
-        throw new \Exception(sprintf('No class or interface found in file "%s".', $file));
+        throw new FileComplicationException(sprintf('No class or interface found in file "%s".', $file));
     }
 }
