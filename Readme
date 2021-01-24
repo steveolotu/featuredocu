@@ -1,0 +1,53 @@
+# Installation
+
+## (Optional) Register Twig template
+
+To use the Twig template, the path needs to be regisered first.
+
+To do so, add the path to the file: "config/packages/twig.yaml".
+
+If the variable "paths" doesn't exist yet, create it, but also add the default_path:
+
+Before:
+
+    twig:
+        ...
+        default_path: '%kernel.project_dir%/templates'
+        ...
+
+After:
+
+    twig:
+        ...
+        default_path: '%kernel.project_dir%/templates'
+        paths:
+            - '%kernel.project_dir%/templates'
+            - '%kernel.project_dir%/vendor/efrane/console-additions/src/FeatureDocu/Twig'
+        ...
+
+# Usage
+
+## Adding references
+
+Add one or more @LivingDocumentationA annotations to any class, method or property.
+
+Required parameters are:
+- identifier: The name of the feature. It is recommended to use slashes to separate levels.
+- order: Order in which entries of one specific identifier will be displayed. Must be unique.
+  Tipp: Using steps of 100 allows to add elements later on without having to update all respective references.
+- Description: Text that explains which part of the feature this specific class, method or property has.
+
+Examples:
+
+    @LivingDocumentationA(identifier="Backup/generate", order="1000", description="UI starting point")
+    @LivingDocumentationA(identifier="Backup/delete", order="1040", description="UI starting point.")
+
+## Using references
+
+
+
+### Available output formats
+
+- ListListObject: The internal object used to gather the information. It's not recommended to use it.
+- Array
+- Html: A html table

@@ -1,0 +1,42 @@
+<table class="table table-striped table-dark">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Order</th>
+        <th scope="col">Class</th>
+        <th scope="col">Subitem</th>
+        <th scope="col">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for identifier, annotationsOfIdentifier in livingDocumentationList %}
+            <tr>
+                <td colspan="6">
+                    {{ identifier }}
+                </td>
+            </tr>
+            {% for annotation in annotationsOfIdentifier %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+{#                    <td>#}
+{#                        <a href="{{ path('documentation_single_automated', {'slug': class.slug}) }}">#}
+{#                            {{ class.nameShort }}#}
+{#                        </a>#}
+{#                    </td>#}
+                    <td>
+                        {{ annotation.order }}
+                    </td>
+                    <td>
+                        {{ annotation.class }}
+                    </td>
+                    <td>
+                        {{ annotation.subitem }}
+                    </td>
+                    <td>
+                        {{ annotation.description }}
+                    </td>
+                </tr>
+            {% endfor %}
+        {% endfor %}
+    </tbody>
+</table>
