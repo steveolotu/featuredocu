@@ -1,8 +1,8 @@
 <?php
 
-namespace EFrane\ConsoleAdditions\FeatureDocu\ValueObject\ListOnlyVO;
+namespace SteveOlotu\FeatureDocu\ValueObject\ListOnlyVO;
 
-use EFrane\ConsoleAdditions\FeatureDocu\ValueObject\ReferenceVO;
+use SteveOlotu\FeatureDocu\ValueObject\ReferenceVO;
 
 class ListReferenceVO extends AbstractListVO
 {

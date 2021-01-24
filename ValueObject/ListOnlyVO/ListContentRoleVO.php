@@ -1,8 +1,8 @@
 <?php
 
-namespace EFrane\ConsoleAdditions\FeatureDocu\ValueObject\ListOnlyVO;
+namespace SteveOlotu\FeatureDocu\ValueObject\ListOnlyVO;
 
-use EFrane\ConsoleAdditions\FeatureDocu\Entity\Content\ContentRole;
+use SteveOlotu\FeatureDocu\Entity\Content\ContentRole;
 
 class ListContentRoleVO extends AbstractListVO
 {

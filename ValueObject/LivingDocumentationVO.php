@@ -1,8 +1,8 @@
 <?php
 
-namespace EFrane\ConsoleAdditions\FeatureDocu\ValueObject;
+namespace SteveOlotu\FeatureDocu\ValueObject;
 
-use EFrane\ConsoleAdditions\FeatureDocu\Annotation\InterfaceA;
+use SteveOlotu\FeatureDocu\Annotation\InterfaceA;
 
 class LivingDocumentationVO
 {

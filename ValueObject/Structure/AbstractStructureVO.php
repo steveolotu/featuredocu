@@ -1,10 +1,10 @@
 <?php /** @noinspection PhpMissingFieldTypeInspection */
 
-namespace EFrane\ConsoleAdditions\FeatureDocu\ValueObject\Structure;
+namespace SteveOlotu\FeatureDocu\ValueObject\Structure;
 
-use EFrane\ConsoleAdditions\FeatureDocu\Exceptions\InvalidArgumentException;
-use EFrane\ConsoleAdditions\FeatureDocu\Service\PhpHelperService;
-use EFrane\ConsoleAdditions\FeatureDocu\ValueObject\ListOnlyVO\ListAnnotationVO;
+use SteveOlotu\FeatureDocu\Exceptions\InvalidArgumentException;
+use SteveOlotu\FeatureDocu\Service\PhpHelperService;
+use SteveOlotu\FeatureDocu\ValueObject\ListOnlyVO\ListAnnotationVO;
 use Reflector;
 
 abstract class AbstractStructureVO implements StructureVOInterface

@@ -1,13 +1,13 @@
 <?php
 
-namespace EFrane\ConsoleAdditions\FeatureDocu\Annotation;
+namespace SteveOlotu\FeatureDocu\Annotation;
 
-use EFrane\ConsoleAdditions\FeatureDocu\Exceptions\InvalidArgumentException;
-use EFrane\ConsoleAdditions\FeatureDocu\Service\PhpHelperService;
-use EFrane\ConsoleAdditions\FeatureDocu\ValueObject\Structure\StructureClassVO;
-use EFrane\ConsoleAdditions\FeatureDocu\ValueObject\Structure\StructureMethodVO;
-use EFrane\ConsoleAdditions\FeatureDocu\ValueObject\Structure\StructurePropertyVO;
-use EFrane\ConsoleAdditions\FeatureDocu\ValueObject\Structure\StructureVOInterface;
+use SteveOlotu\FeatureDocu\Exceptions\InvalidArgumentException;
+use SteveOlotu\FeatureDocu\Service\PhpHelperService;
+use SteveOlotu\FeatureDocu\ValueObject\Structure\StructureClassVO;
+use SteveOlotu\FeatureDocu\ValueObject\Structure\StructureMethodVO;
+use SteveOlotu\FeatureDocu\ValueObject\Structure\StructurePropertyVO;
+use SteveOlotu\FeatureDocu\ValueObject\Structure\StructureVOInterface;
 use UnexpectedValueException;
 
 abstract class AbstractCoreA implements InterfaceA, StructureVOInterface

@@ -1,8 +1,8 @@
 <?php
 
-namespace EFrane\ConsoleAdditions\FeatureDocu\ValueObject\ListOnlyVO;
+namespace SteveOlotu\FeatureDocu\ValueObject\ListOnlyVO;
 
-use EFrane\ConsoleAdditions\FeatureDocu\Entity\System\SystemSetting;
+use SteveOlotu\FeatureDocu\Entity\System\SystemSetting;
 
 class ListSystemSettingsVO extends AbstractListVO
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace EFrane\ConsoleAdditions\FeatureDocu\Exceptions;
+namespace SteveOlotu\FeatureDocu\Exceptions;
 
 use Exception;
 

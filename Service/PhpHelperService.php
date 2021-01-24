@@ -1,8 +1,8 @@
 <?php
 
-namespace EFrane\ConsoleAdditions\FeatureDocu\Service;
+namespace SteveOlotu\FeatureDocu\Service;
 
-use EFrane\ConsoleAdditions\FeatureDocu\Exceptions\FileComplicationException;
+use SteveOlotu\FeatureDocu\Exceptions\FileComplicationException;
 use Doctrine\Common\Util\ClassUtils;
 
 class PhpHelperService

@@ -1,6 +1,6 @@
 <?php
 
-namespace EFrane\ConsoleAdditions\FeatureDocu\Annotation;
+namespace SteveOlotu\FeatureDocu\Annotation;
 
 /**
  * @Annotation
