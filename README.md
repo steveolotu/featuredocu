@@ -1,3 +1,5 @@
+This is still work in progress. The code already works (in a different context), but I'm new to the dependency publishing game. So I'm still trying to figure stuff out and had to publish it first, in order to test it.
+
 # featuredocu
 
 ## What it does
