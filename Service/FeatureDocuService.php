@@ -4,7 +4,7 @@ namespace SteveOlotu\FeatureDocu;
 
 use Doctrine\Common\Annotations\Reader;
 use SteveOlotu\FeatureDocu\Annotation\AbstractCoreA;
-use SteveOlotu\FeatureDocu\Annotation\LivingDocumentationA;
+use SteveOlotu\FeatureDocu\Annotation\FeatureDocuAnnotation;
 use SteveOlotu\FeatureDocu\Service\StructureService;
 use SteveOlotu\FeatureDocu\ValueObject\ListOnlyVO\ListListStructureClassVO;
 use SteveOlotu\FeatureDocu\ValueObject\ListOnlyVO\ListLivingDocumentationVO;
@@ -52,7 +52,7 @@ class FeatureDocuService
         $this->setClasses($this->structureService->getListOfAllClassesInPath($this->path));
 
         $filterArray = [
-            'getAnnotationClass' => LivingDocumentationA::class
+            'getAnnotationClass' => FeatureDocuAnnotation::class
         ];
         $this->setListLivingDocumentationVO($this->structureService->compileListOfEverythingWithAnnotation(
             $this->getClasses(),

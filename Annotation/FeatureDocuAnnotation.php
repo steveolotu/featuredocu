@@ -2,20 +2,10 @@
 
 namespace SteveOlotu\FeatureDocu\Annotation;
 
-/**
- * @Annotation
- * @Target({"ALL"})
- */
-class LivingDocumentationA extends AbstractCoreA
+class FeatureDocuAnnotation extends AbstractCoreA
 {
     protected string $identifier;
     protected string $order;
-
-    static public function getAnnotationReadme(): array
-    {
-        return ["Not yet implemented. Not sure if I want this. 
-        Used to enforce Typehints which are not possible otherwise."];
-    }
 
     /**
      * @return string

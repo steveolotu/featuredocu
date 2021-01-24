@@ -2,7 +2,7 @@
 
 namespace SteveOlotu\FeatureDocu\ValueObject\ListOnlyVO;
 
-use SteveOlotu\FeatureDocu\Annotation\LivingDocumentationA;
+use SteveOlotu\FeatureDocu\Annotation\FeatureDocuAnnotation;
 use SteveOlotu\FeatureDocu\Exceptions\InvalidArgumentException;
 use SteveOlotu\FeatureDocu\ValueObject\LivingDocumentationVO;
 
@@ -16,7 +16,7 @@ class ListLivingDocumentationVO extends AbstractListVO
     public function bulkPopulateWithAnnotations(ListAnnotationVO $listAnnotationVO)
     {
         foreach ($listAnnotationVO->toArray() as $annotation) {
-            if ($annotation instanceof LivingDocumentationA) {
+            if ($annotation instanceof FeatureDocuAnnotation) {
                 $livingDocuVO = new LivingDocumentationVO(
                     $annotation,
                     $annotation->getDescription(),

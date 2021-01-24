@@ -61,13 +61,6 @@ abstract class AbstractCoreA implements InterfaceA, StructureVOInterface
         ));
     }
 
-    abstract static function getAnnotationReadme(): array;
-
-    static public function getDocuComponent(): ?string
-    {
-        return null;
-    }
-
     static public function getDocuComponentName(): ?string
     {
         $childClass = get_called_class();
