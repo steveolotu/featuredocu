@@ -1,0 +1,27 @@
+{
+  "name": "steveolotu/featuredocu",
+  "description": "Uses annotations to auto-generate documentation of business logic features in the code.",
+  "type": "library",
+  "keywords": [
+    "symfony", "documentation", "annotations"
+  ],
+  "require": {
+    "doctrine/annotations": "^1.11",
+    "symfony/twig-pack": "1.*"
+  },
+  "require-dev": {
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Steve Olotu",
+      "email": "mail@steveolotu.com"
+    }
+  ],
+  "minimum-stability": "stable",
+  "autoload": {
+    "psr-4": {
+      "SteveOlotu\\FeatureDoco\\": ""
+    }
+  }
+}
