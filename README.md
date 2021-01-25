@@ -20,7 +20,7 @@ This is still work in progress. The code already works (in a different context),
     1. [Using references](#using-references)
         1. [Available output formats](#available-output-formats)
 1. [TODO](#todo)
-1. [Additional notes](#additional-notes)
+1. [Contributors](#contributors)
 
 ## Introduction
 
@@ -144,6 +144,12 @@ $featureDocu->getOutputArray();
 $featureDocu->getOutputHtml();
 ```
 
+- Maybe useful: To get all class objects found in files, after analyzing the code, use:
+
+```php
+$featureDocu->getClasses();
+```
+
 ## TODO#
 
 - Add some tests
@@ -152,10 +158,6 @@ $featureDocu->getOutputHtml();
 - Check code style
 - Check for unused code
 
-## Additional notes
+## Contributors
 
-To get all classes found in files, after analyzing the code, use:
-
-```php
-$featureDocu->getClasses();
-```
+Special thanks to -pending permission to add name-.
