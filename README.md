@@ -32,11 +32,11 @@ The truth is in the code, sure, but the code is oftentimes spread out across man
 
 In these situations, the easiest way of understanding components is asking the architect to explain it. While doing so, they can just across different files and give brief comments on what happens where.
 
-## Problem 2: Rotting or neglected documentation
+### Problem 2: Rotting or neglected documentation
 
 Documentation is work, usually associated with a context switch and oftentimes out of date. Also, without a good system, it's difficult to find the documentation for the area one is currently working on.
 
-## Solution
+### Solution
 
 To solve these problems, this library uses annotations to auto-generate up-to-date documentation in an appealing format and present it all in one place. It is sourced from bits and pieces spread out across the code. The documentation happens where the code happens. This enables developers to let documentation become part of their coding work without switching context.
 
