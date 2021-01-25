@@ -4,7 +4,7 @@ namespace SteveOlotu\FeatureDocu\Service;
 
 use SteveOlotu\FeatureDocu\Exceptions\FileComplicationException;
 use Doctrine\Common\Util\ClassUtils;
-use Symfony\Component\Intl\Exception\InvalidArgumentException;
+use SteveOlotu\FeatureDocu\Exceptions\InvalidArgumentException;
 
 class PhpHelperService
 {
