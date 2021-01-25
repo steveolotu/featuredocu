@@ -7,10 +7,19 @@
   ],
   "require": {
     "doctrine/annotations": "^1.11",
-    "php": ">=7.4",
-    "symfony/twig-pack": "1.*"
+    "doctrine/common": "^3.1",
+    "php": ">=7.3",
+    "symfony/framework-bundle": "^5.0",
+    "symfony/http-client": "^5.2.1",
+    "symfony/intl": "^5.2.1",
+    "symfony/twig-bundle": "^5.2.1",
+    "symfony/twig-pack": "1.*",
+    "twig/twig": "^3.2.1"
   },
   "require-dev": {
+    "friendsofphp/php-cs-fixer": "^2.16.7",
+    "phpstan/phpstan": "^0.12.56",
+    "symfony/phpunit-bridge": "^4.4|^5.0"
   },
   "license": "MIT",
   "authors": [
@@ -22,7 +31,12 @@
   "minimum-stability": "dev",
   "autoload": {
     "psr-4": {
-      "SteveOlotu\\FeatureDoco\\": ""
+      "SteveOlotu\\FeatureDoco\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "SteveOlotu\\FeatureDoco\\Tests\\": "tests/"
     }
   }
 }
