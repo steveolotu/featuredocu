@@ -13,9 +13,10 @@ This is still work in progress. The code already works (in a different context),
 1. [Requirements](#requirements)
 1. [Installation](#installation)
     1. [Step 1: Install the bundle using composer](#step-1-install-the-bundle-using-composer)
-    1. [Step 2: Add the bundle to your bundles.php](#step-2-add-the-bundle-to-your-bundles.php)
+    1. [Step 2: Add the bundle to your bundles.php](#step-2-add-the-bundle-to-your-bundlesphp)
     1. [(Optional) Register Twig template](#optional-register-twig-template)
 1. [Usage](#usage)
+    1. [Adding references](#adding-references)
     1. [Using references](#using-references)
         1. [Available output formats](#available-output-formats)
 1. [TODO](#todo)
@@ -51,11 +52,13 @@ To solve these problems, this library uses annotations to auto-generate up-to-da
 
 ### Step 2: Add the bundle to your bundles.php
 
-    // config/bundles.php
-    return [
-    //..
-    SteveOlotu\FeatureDocuBundle\FeatureDocuBundle::class => ['all' => true],
-    ];
+```php
+// config/bundles.php
+return [
+//..
+SteveOlotu\FeatureDocuBundle\FeatureDocuBundle::class => ['all' => true],
+];
+```
 
 ### (Optional) Register Twig template
 
@@ -67,20 +70,24 @@ If the variable "paths" doesn't exist yet, create it, but also add the default_p
 
 Before:
 
-    twig:
-        ...
-        default_path: '%kernel.project_dir%/templates'
-        ...
+```twig
+twig:
+    ...
+    default_path: '%kernel.project_dir%/templates'
+    ...
+```
 
 After:
 
-    twig:
-        ...
-        default_path: '%kernel.project_dir%/templates'
-        paths:
-            - '%kernel.project_dir%/templates'
-            - '%kernel.project_dir%/vendor/steveolotu/featuredocu/Twig'
-        ...
+```twig
+twig:
+    ...
+    default_path: '%kernel.project_dir%/templates'
+    paths:
+        - '%kernel.project_dir%/templates'
+        - '%kernel.project_dir%/vendor/steveolotu/featuredocu/Twig'
+    ...
+```
 
 ## Usage
 
@@ -105,12 +112,15 @@ Examples:
 To generate output, three steps are required:
 
 1. Initialize Object with your desired path
-    
-    $featureDocu = new FeatureDocu($path, $reader, $twig);
+
+```php
+$featureDocu = new FeatureDocu($path, $reader, $twig);
+```
 
 2. Analyzing the output checks the files in the specified path
-
-    $featureDocu->analyze()
+```php
+$featureDocu->analyze();
+```
 
 3. Generate output.
 
@@ -118,15 +128,21 @@ To generate output, three steps are required:
 
 - ListListObject: The internal object used to gather the information. It's not recommended to use it.
 
-    featureDocu->getListObject();
+```php
+$featureDocu->getListObject();
+```
 
 - Array
 
-    featureDocu->getOutputArray();
+```php
+$featureDocu->getOutputArray();
+```
 
 - Html: A html table
 
-    featureDocu->getOutputHtml();
+```php
+$featureDocu->getOutputHtml();
+```
 
 ## TODO
 
@@ -140,4 +156,6 @@ To generate output, three steps are required:
 
 To get all classes found in files, after analyzing the code, use:
 
-    featureDocu->getClasses();
+```php
+$featureDocu->getClasses();
+```
