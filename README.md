@@ -62,9 +62,9 @@ SteveOlotu\FeatureDocu\FeatureDocuBundle::class => ['all' => true],
 
 ### (Optional) Register Twig template
 
-To use the Twig template, the path needs to be regisered first.
+To use the Twig template, the path needs to be registered first.
 
-To do so, add the path to the file: "config/packages/twig.yaml".
+To do so, add the path to the file: `config/packages/twig.yaml`.
 
 If the variable "paths" doesn't exist yet, create it, but also add the default_path:
 
