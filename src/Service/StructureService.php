@@ -3,7 +3,6 @@
 namespace SteveOlotu\FeatureDocu\Service;
 
 use Doctrine\Common\Annotations\Reader;
-use Doctrine\Common\Util\ClassUtils;
 use SteveOlotu\FeatureDocu\Annotation\AbstractCoreA;
 use SteveOlotu\FeatureDocu\Annotation\InterfaceA;
 use SteveOlotu\FeatureDocu\Exceptions\InvalidArgumentException;
@@ -19,12 +18,7 @@ use SteveOlotu\FeatureDocu\ValueObject\Structure\StructurePropertyVO;
 use SteveOlotu\FeatureDocu\ValueObject\Structure\StructureVOInterface;
 use ReflectionClass;
 use ReflectionException;
-use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Intl\Exception\NotImplementedException;
-use Twig\Environment;
-use Twig\Error\LoaderError;
-use Twig\Error\RuntimeError;
-use Twig\Error\SyntaxError;
 use UnexpectedValueException;
 
 class StructureService
