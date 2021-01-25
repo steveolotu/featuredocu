@@ -2,6 +2,10 @@
 
 namespace SteveOlotu\FeatureDocu\Annotation;
 
+/**
+ * @Annotation
+ * @Target({"ALL"})
+ */
 class FeatureDocuAnnotation extends AbstractCoreA
 {
     protected string $identifier;
