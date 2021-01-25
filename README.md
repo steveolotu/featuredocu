@@ -56,7 +56,7 @@ To solve these problems, this library uses annotations to auto-generate up-to-da
 // config/bundles.php
 return [
 //..
-SteveOlotu\FeatureDocuBundle\FeatureDocuBundle::class => ['all' => true],
+SteveOlotu\FeatureDocu\FeatureDocuBundle::class => ['all' => true],
 ];
 ```
 
@@ -144,7 +144,7 @@ $featureDocu->getOutputArray();
 $featureDocu->getOutputHtml();
 ```
 
-## TODO
+## TODO#
 
 - Add some tests
 - Classes are not found, fix bundle integration
