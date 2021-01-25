@@ -1,10 +1,29 @@
-This is still work in progress. The code already works (in a different context), but I'm new to the dependency publishing game. So I'm still trying to figure stuff out and had to publish it first, in order to test it.
-
 # featuredocu
 
-## What it does
+## Disclaimer / Warning
 
-- Auto-generates documentation from specific annotations.
+This is still work in progress. The code already works (in a different context), but I'm new to the dependency publishing game. So I'm still trying to figure stuff out and had to publish it first, in order to test it.
+
+## Table of Contents
+
+1. [Introduction](#introduction)
+    1. [Problem 1: Spread out features](#problem-1-spread-out-features)
+    1. [Problem 2: Rotting or neglected documentation](#problem-2-rotting-or-neglected-documentation)
+    1. [Solution](#solution)
+1. [Requirements](#requirements)
+1. [Installation](#installation)
+    1. [Step 1: Install the bundle using composer](#step-1-install-the-bundle-using-composer)
+    1. [Step 2: Add the bundle to your bundles.php](#step-2-add-the-bundle-to-your-bundles.php)
+    1. [(Optional) Register Twig template](#optional-register-twig-template)
+1. [Usage](#usage)
+    1. [Using references](#using-references)
+        1. [Available output formats](#available-output-formats)
+1. [TODO](#todo)
+1. [Additional notes](#additional-notes)
+
+## Introduction
+
+This bundle auto-generates documentation from specific annotations.
 
 ### Problem 1: Spread out features
 
@@ -20,9 +39,23 @@ Documentation is work, usually associated with a context switch and oftentimes o
 
 To solve these problems, this library uses annotations to auto-generate up-to-date documentation in an appealing format and present it all in one place. It is sourced from bits and pieces spread out across the code. The documentation happens where the code happens. This enables developers to let documentation become part of their coding work without switching context.
 
-## Installation
+## Requirements
 
 - Build for use in Symfony 5.2, compatibility with other software is uncertain.
+
+## Installation
+
+### Step 1: Install the bundle using composer
+
+    composer require kms/froala-editor-bundle
+
+### Step 2: Add the bundle to your bundles.php
+
+    // config/bundles.php
+    return [
+    //..
+    SteveOlotu\FeatureDocuBundle\FeatureDocuBundle::class => ['all' => true],
+    ];
 
 ### (Optional) Register Twig template
 
@@ -53,7 +86,7 @@ After:
 
 ### Adding references
 
-Add one or more @LivingDocumentationA annotations to any class, method or property.
+Add one or more `@FeatureDocuAnnotation` annotations to any class, method or property.
 
 Required parameters are:
 - identifier: The name of the feature. It is recommended to use slashes to separate levels.
@@ -63,9 +96,9 @@ Required parameters are:
 
 Examples:
 
-    @LivingDocumentationA(identifier="Backup/generate", order="1000", description="UI starting point")
+    @FeatureDocuAnnotation(identifier="Backup/generate", order="1000", description="UI starting point")
 
-    @LivingDocumentationA(identifier="Backup/delete", order="1040", description="UI starting point.")
+    @FeatureDocuAnnotation(identifier="Backup/delete", order="1040", description="UI starting point.")
 
 ### Using references
 
@@ -95,8 +128,16 @@ To generate output, three steps are required:
 
     featureDocu->getOutputHtml();
 
-### Additional notes
+## TODO
+
+- Add some tests
+- Classes are not found, fix bundle integration
+- Requirements are uncertain, check
+- Check code style
+- Check for unused code
+
+## Additional notes
 
 To get all classes found in files, after analyzing the code, use:
 
-featureDocu->getClasses();
+    featureDocu->getClasses();
