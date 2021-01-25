@@ -55,7 +55,7 @@ class StructureService
     {
         $pathsArray[$path] = true;
 
-        $subPaths = PhpHelperService::customScandir($path, false, true);
+        $subPaths = PhpHelperService::customScanDir($path, false, true);
         foreach ($subPaths as $subPath) {
             $fullSubPath = $path . '/' . $subPath;
             if (is_dir($fullSubPath)) {
@@ -91,7 +91,7 @@ class StructureService
      */
     private function getPhpFilesInPath(string $path): array
     {
-        $files = PhpHelperService::customScandir($path, true, false);
+        $files = PhpHelperService::customScanDir($path, true, false);
 
         return $files;
     }

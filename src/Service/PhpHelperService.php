@@ -4,10 +4,11 @@ namespace SteveOlotu\FeatureDocu\Service;
 
 use SteveOlotu\FeatureDocu\Exceptions\FileComplicationException;
 use Doctrine\Common\Util\ClassUtils;
+use Symfony\Component\Intl\Exception\InvalidArgumentException;
 
 class PhpHelperService
 {
-    static public function customScandir(string $path, bool $includeFiles = true, bool $includeDirectories = true): array
+    static public function customScanDir(string $path, bool $includeFiles = true, bool $includeDirectories = true): array
     {
         $filesAndDirectories = array_diff(
             scandir($path, 1),
@@ -125,5 +126,21 @@ class PhpHelperService
             }
         }
         throw new FileComplicationException(sprintf('No class or interface found in file "%s".', $file));
+    }
+
+
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    static public function ensureCorrectType($providedThing, string $expectedClass): void
+    {
+        if (!self::isClassTypeOrImplementationOrExtension($providedThing, $expectedClass)) {
+            throw new InvalidArgumentException(sprintf(
+                'Got "%s", expected "%s".',
+                get_class($providedThing),
+                $expectedClass
+            ));
+        }
     }
 }

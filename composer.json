@@ -11,10 +11,11 @@
     "php": ">=7.3",
     "symfony/framework-bundle": "^5.0",
     "symfony/http-client": "^5.2.1",
-    "symfony/intl": "^5.2.1",
+    "symfony/polyfill-intl-icu": "~1.0",
     "symfony/twig-bundle": "^5.2.1",
     "symfony/twig-pack": "1.*",
-    "twig/twig": "^3.2.1"
+    "twig/twig": "^3.2.1",
+    "symfony/polyfill-intl-icu": "1.22.x-dev"
   },
   "require-dev": {
     "friendsofphp/php-cs-fixer": "^2.16.7",

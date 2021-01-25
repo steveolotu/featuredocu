@@ -1,14 +1,13 @@
 <?php
 
-namespace SteveOlotu\FeatureDocu;
+namespace SteveOlotu\FeatureDocu\Service;
 
 use Doctrine\Common\Annotations\Reader;
 use SteveOlotu\FeatureDocu\Annotation\AbstractCoreA;
 use SteveOlotu\FeatureDocu\Annotation\FeatureDocuAnnotation;
-use SteveOlotu\FeatureDocu\Service\StructureService;
 use SteveOlotu\FeatureDocu\ValueObject\ListOnlyVO\ListListStructureClassVO;
 use SteveOlotu\FeatureDocu\ValueObject\ListOnlyVO\ListLivingDocumentationVO;
-use Symfony\Component\Intl\Exception\NotImplementedException;
+use Symfony\Polyfill\Intl\Icu\Exception\NotImplementedException;
 use Twig\Environment;
 
 class FeatureDocuService
