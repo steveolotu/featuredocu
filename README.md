@@ -19,6 +19,7 @@ This is still work in progress. The code already works (in a different context),
     1. [Adding references](#adding-references)
     1. [Using references](#using-references)
         1. [Available output formats](#available-output-formats)
+        1. [Internally used output formats](#internally-used-output-formats)
 1. [TODO](#todo)
 1. [Contributors](#contributors)
 
@@ -126,12 +127,6 @@ $featureDocu->analyze();
 
 #### Available output formats
 
-- ListListObject: The internal object used to gather the information. It's not recommended to use it.
-
-```php
-$featureDocu->getListObject();
-```
-
 - Array
 
 ```php
@@ -144,7 +139,15 @@ $featureDocu->getOutputArray();
 $featureDocu->getOutputHtml();
 ```
 
-- Maybe useful: To get all class objects found in files, after analyzing the code, use:
+#### Internally used output formats
+
+- ListListObject: The internal object used to gather the information.
+
+```php
+$featureDocu->getListObject();
+```
+
+- To get all class objects found in files, after analyzing the code, use:
 
 ```php
 $featureDocu->getClasses();
