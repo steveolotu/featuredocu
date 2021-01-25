@@ -1,4 +1,4 @@
-# featuredocu
+# Feature Docu
 
 ## Disclaimer / Warning
 
