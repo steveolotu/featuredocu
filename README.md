@@ -156,7 +156,6 @@ $featureDocu->getClasses();
 ## TODO#
 
 - Add some tests
-- Classes are not found, fix bundle integration
 - Requirements are uncertain, check
 - Check code style
 - Check for unused code
