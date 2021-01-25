@@ -31,7 +31,7 @@
   "minimum-stability": "dev",
   "autoload": {
     "psr-4": {
-      "SteveOlotu\\FeatureDoco\\": "src/"
+      "SteveOlotu\\FeatureDocu\\": "src/"
     }
   },
   "autoload-dev": {
