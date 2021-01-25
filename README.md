@@ -47,7 +47,7 @@ To solve these problems, this library uses annotations to auto-generate up-to-da
 
 ### Step 1: Install the bundle using composer
 
-    composer require kms/froala-editor-bundle
+    composer require steveolotu/featuredocu
 
 ### Step 2: Add the bundle to your bundles.php
 
