@@ -163,4 +163,4 @@ $featureDocu->getClasses();
 
 ## Contributors
 
-Special thanks to -pending permission to add name-.
+Special thanks to @eFrane.
