@@ -8,7 +8,6 @@ use SteveOlotu\FeatureDocu\Annotation\FeatureDocuAnnotation;
 use SteveOlotu\FeatureDocu\Service\StructureService;
 use SteveOlotu\FeatureDocu\ValueObject\ListOnlyVO\ListListStructureClassVO;
 use SteveOlotu\FeatureDocu\ValueObject\ListOnlyVO\ListLivingDocumentationVO;
-use StoryObject;
 use Symfony\Component\Intl\Exception\NotImplementedException;
 use Twig\Environment;
 
@@ -44,7 +43,7 @@ class FeatureDocuService
 
     static public function getDocuByKey(string $key)
     {
-        return new StoryObject();
+        // fixme not yet implemented
     }
 
     public function analyze(): self
