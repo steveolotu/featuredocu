@@ -92,17 +92,15 @@ class FeatureDocuService
     public function getOutputArray(): array
     {
         $array = [];
-        $identifiers = [];
-
         foreach ($this->getListLivingDocumentationVO()->toArray() as $livingDocumentationVO) {
 
             $annotationType = $livingDocumentationVO->getAnnotation()->getAnnotationType();
             if (AbstractCoreA::ANNOTATION_TYPES_CLASS === $annotationType) {
-                $subitem = 'class';
+                $subItem = 'class';
             } elseif (AbstractCoreA::ANNOTATION_TYPES_METHOD === $annotationType) {
-                $subitem = $livingDocumentationVO->getAnnotation()->getAnnotationMethod();
+                $subItem = $livingDocumentationVO->getAnnotation()->getAnnotationMethod();
             } elseif (AbstractCoreA::ANNOTATION_TYPES_PROPERTY === $annotationType) {
-                $subitem = $livingDocumentationVO->getAnnotation()->getAnnotationProperty();
+                $subItem = $livingDocumentationVO->getAnnotation()->getAnnotationProperty();
             } else {
                 throw new NotImplementedYetException('Annotation type undefined.');
             }
