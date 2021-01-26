@@ -3,11 +3,13 @@
 namespace SteveOlotu\FeatureDocu\Service;
 
 use Doctrine\Common\Annotations\Reader;
+use ReflectionException;
+use SteveOlotu\FeatureDocu\Exceptions\NotImplementedYetException;
 use SteveOlotu\FeatureDocu\Annotation\AbstractCoreA;
 use SteveOlotu\FeatureDocu\Annotation\FeatureDocuAnnotation;
+use SteveOlotu\FeatureDocu\Exceptions\InvalidArgumentException;
 use SteveOlotu\FeatureDocu\ValueObject\ListOnlyVO\ListListStructureClassVO;
 use SteveOlotu\FeatureDocu\ValueObject\ListOnlyVO\ListLivingDocumentationVO;
-use Symfony\Polyfill\Intl\Icu\Exception\NotImplementedException;
 use Twig\Environment;
 
 class FeatureDocuService
@@ -40,6 +42,10 @@ class FeatureDocuService
         // fixme not yet implemented
     }
 
+    /**
+     * @throws ReflectionException
+     * @throws InvalidArgumentException
+     */
     public function analyze(): self
     {
         $this->setClasses($this->structureService->getListOfAllClassesInPath($this->path));
@@ -80,7 +86,9 @@ class FeatureDocuService
         );
     }
 
-
+    /**
+     * @throws NotImplementedYetException
+     */
     public function getOutputArray(): array
     {
         $array = [];
@@ -96,7 +104,7 @@ class FeatureDocuService
             } elseif (AbstractCoreA::ANNOTATION_TYPES_PROPERTY === $annotationType) {
                 $subitem = $livingDocumentationVO->getAnnotation()->getAnnotationProperty();
             } else {
-                throw new NotImplementedException('Annotation type undefined.');
+                throw new NotImplementedYetException('Annotation type undefined.');
             }
 
             $i = $this->generateIdentifierArray($livingDocumentationVO->getIdentifier());
