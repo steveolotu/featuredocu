@@ -48,7 +48,7 @@ class FeatureDocuService
      */
     public function analyze(): self
     {
-        $this->setClasses($this->structureService->getListOfAllClassesInPath($this->path));
+        $this->setClasses($this->structureService->getListOfAllClassesInPath($this->getPath()));
 
         $filterArray = [
             'getAnnotationClass' => FeatureDocuAnnotation::class
