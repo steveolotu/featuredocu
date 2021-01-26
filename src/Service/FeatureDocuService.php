@@ -35,11 +35,6 @@ class FeatureDocuService
         $this->path = $path;
     }
 
-    static public function test()
-    {
-        return 'test 123';
-    }
-
     static public function getDocuByKey(string $key)
     {
         // fixme not yet implemented
