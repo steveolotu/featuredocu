@@ -137,21 +137,21 @@ $featureDocu->analyze();
 $featureDocu->getOutputArray();
 ```
 
-- Html: A html table
-
-#### Output a "table of contents"-list of identifiers
+Html: A html table
  
 ```php
 $featureDocu->getOutputHtml();
 ```
 
+#### Output a "table of contents"-list of identifiers
+
 - Array: List of features
 
 Format:
 ```
-[ 'backup' => [
- ['create' => true],
- ['update' => true],
+['backup' => [
+    ['create' => true],
+    ['update' => true],
 ]
  ```
 Note: The value "true" is only a placeholder. The useful data is stored in the keys.
