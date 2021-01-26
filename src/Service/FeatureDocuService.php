@@ -11,6 +11,9 @@ use SteveOlotu\FeatureDocu\Exceptions\InvalidArgumentException;
 use SteveOlotu\FeatureDocu\ValueObject\ListOnlyVO\ListListStructureClassVO;
 use SteveOlotu\FeatureDocu\ValueObject\ListOnlyVO\ListLivingDocumentationVO;
 use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 class FeatureDocuService
 {
@@ -74,6 +77,53 @@ class FeatureDocuService
             'outputHtml.html.twig',
             ['contentArray' => $contentArray]
         );
+    }
+
+    /**
+     * @throws NotImplementedYetException
+     */
+    public function getFeatureListNestedArray(): array
+    {
+        $contentArray = $this->getOutputArray();
+
+        $features = [];
+        foreach ($contentArray as $key => $value) {
+            $features = array_merge_recursive($features, $this->recursivelyAddElementsToFeatureList(0, $key));
+        }
+
+        return $features;
+    }
+
+    /**
+     * @throws NotImplementedYetException
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     */
+    public function getFeatureListHtmlList(bool $links = true): string
+    {
+        return $this->twig->render(
+            'featureListHtml.html.twig',
+            [
+                'featureList' => $this->getFeatureListNestedArray(),
+                'links' => $links,
+            ]
+        );
+    }
+
+    private function recursivelyAddElementsToFeatureList(int $i, string $key): array
+    {
+        $elements = explode('/', $key, 2);
+        $currentElement = $elements[0];
+
+        $subOutput[$currentElement] = [];
+
+        if (2 === count($elements)) {
+            $subElements = $elements[1];
+            $subOutput[$currentElement] = $this->recursivelyAddElementsToFeatureList($i, $subElements);
+        }
+
+        return $subOutput;
     }
 
     /**

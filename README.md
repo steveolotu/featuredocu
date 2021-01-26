@@ -18,7 +18,8 @@ This is still work in progress. The code already works (in a different context),
 1. [Usage](#usage)
     1. [Adding references](#adding-references)
     1. [Using references](#using-references)
-        1. [Available output formats](#available-output-formats)
+        1. [Output references](#output-references)
+        1. [Output a "table of contents"-list of identifiers](#output-a-table-of-contents-list-of-identifiers)
         1. [Internally used output formats](#internally-used-output-formats)
 1. [TODO](#todo)
 1. [Contributors](#contributors)
@@ -128,7 +129,7 @@ $featureDocu->analyze();
 
 3. Generate output.
 
-#### Available output formats
+#### Output references
 
 - Array
 
@@ -138,8 +139,37 @@ $featureDocu->getOutputArray();
 
 - Html: A html table
 
+#### Output a "table of contents"-list of identifiers
+ 
 ```php
 $featureDocu->getOutputHtml();
+```
+
+- Array: List of features
+
+Format:
+```
+[ 'backup' => [
+ ['create' => true],
+ ['update' => true],
+]
+ ```
+Note: The value "true" is only a placeholder. The useful data is stored in the keys.
+ 
+```php
+$featureDocu->getFeatureListNestedArray();
+```
+- Html: A hierarchically indented and numbered list
+
+For example:
+```
+1 backup
+ 1.1 create
+ 1.2 delete
+ ```
+ 
+```php
+$featureDocu->getFeatureListHtmlList();
 ```
 
 #### Internally used output formats
