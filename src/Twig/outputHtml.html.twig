@@ -10,8 +10,9 @@
     </thead>
     <tbody>
         {% for identifier, annotationsOfIdentifier in contentArray %}
+            {% set id = 'feature-docu-' ~ identifier|replace({'/': '-'}) %}
             <tr>
-                <td colspan="6">
+                <td colspan="6" id="{{ id }}">
                     {{ identifier }}
                 </td>
             </tr>
