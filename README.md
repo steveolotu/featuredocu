@@ -44,6 +44,9 @@ To solve these problems, this library uses annotations to auto-generate up-to-da
 ## Requirements
 
 - Build for use in Symfony 5.2, compatibility with other software is uncertain.
+- Requires that all analyzed PHP-files follow the PSR4 specification. Specifically, Specification 3.3 "The terminating
+  class name corresponds to a file name ending in .php. The file name MUST match the case of the terminating 
+  class name." (See https://www.php-fig.org/psr/psr-4/#2-specification)
 
 ## Installation
 

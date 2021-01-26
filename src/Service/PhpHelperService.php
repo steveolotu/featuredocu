@@ -99,36 +99,16 @@ class PhpHelperService
     }
 
     /**
-     * Based on, but modified: https://stackoverflow.com/questions/7153000/get-class-name-from-file
-     *
      * @throws FileComplicationException
      */
     static public function getClassNameFromFile(string $file): string
     {
-        $fp = fopen($file, 'r');
-        $class = $buffer = '';
-        $i = 0;
-        while (!$class) {
-            if (feof($fp)) break;
+        $elements = explode('/', $file);
+        $filename = $elements[array_key_last($elements)];
+        $psr4ClassName = rtrim($filename, '.php');
 
-            $buffer .= fread($fp, 512);
-            $tokens = token_get_all($buffer);
-
-            if (strpos($buffer, '{') === false) continue;
-
-            for (;$i<count($tokens);$i++) {
-                if (in_array($tokens[$i][0], [T_CLASS, T_INTERFACE, T_ABSTRACT])) {
-                    $potentialClassName = $tokens[$i+2][1];
-                    if ('class' !== $potentialClassName) {
-                        return $tokens[$i+2][1];
-                    }
-                }
-            }
-        }
-        throw new FileComplicationException(sprintf('No class or interface found in file "%s".', $file));
+        return $psr4ClassName;
     }
-
-
 
     /**
      * @throws InvalidArgumentException
