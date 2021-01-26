@@ -76,7 +76,7 @@ class FeatureDocuService
 
         return $this->twig->render(
             'outputHtml.html.twig',
-            ['livingDocumentationList' => $contentArray]
+            ['contentArray' => $contentArray]
         );
     }
 
