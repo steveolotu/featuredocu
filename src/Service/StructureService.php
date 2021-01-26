@@ -174,6 +174,9 @@ class StructureService
         $methodsArray = $reflectionClass->getMethods();
         $listStructureMethodVO = new ListStructureMethodVO();
         foreach ($methodsArray as $reflectionMethod) {
+            if ($this->isMethodInherited($reflectionMethod, $reflectionClass)) {
+                continue;
+            }
             $methodAnnotationsArray = $this->reader->getMethodAnnotations($reflectionMethod);
             $listAnnotationVO = new ListAnnotationVO($methodAnnotationsArray);
 
@@ -193,6 +196,14 @@ class StructureService
         $structureClassVO->setListStructureMethodVO($listStructureMethodVO);
 
         return $structureClassVO;
+    }
+
+    private function isMethodInherited(\ReflectionMethod $reflectionMethod, \ReflectionClass $reflectionClass): bool
+    {
+        if ($reflectionClass->getName() === $reflectionMethod->getDeclaringClass()->getName()) {
+            return false;
+        }
+        return true;
     }
 
     /**
