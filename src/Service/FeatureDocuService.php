@@ -61,17 +61,7 @@ class FeatureDocuService
         return $this;
     }
 
-    private function generateIdentifierArray(string $identifierString):array
-    {
-        $elements = explode('/', $identifierString);
-        for ($i=0; $i<=3; $i++) {
-            $elements[$i] = array_key_exists($i, $elements) ? $elements[$i] : '-';
-        }
-
-        return $elements;
-    }
-
-    public function getListObject()
+    public function getListObject(): ListLivingDocumentationVO
     {
         return $this->getListLivingDocumentationVO();
     }
@@ -104,9 +94,6 @@ class FeatureDocuService
             } else {
                 throw new NotImplementedYetException('Annotation type undefined.');
             }
-
-            $i = $this->generateIdentifierArray($livingDocumentationVO->getIdentifier());
-
             $array[$livingDocumentationVO->getIdentifier()][] = [
                 'description' => $livingDocumentationVO->getDescription(),
                 'class' => $livingDocumentationVO->getAnnotation()->getAnnotationClass(),
