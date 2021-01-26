@@ -110,7 +110,7 @@ class FeatureDocuService
             $array[$livingDocumentationVO->getIdentifier()][] = [
                 'description' => $livingDocumentationVO->getDescription(),
                 'class' => $livingDocumentationVO->getAnnotation()->getAnnotationClass(),
-                'subitem' => $subitem,
+                'subitem' => $subItem,
                 'order' => $livingDocumentationVO->getOrder(),
             ];
         }
