@@ -1,7 +1,7 @@
 {
   "name": "steveolotu/featuredocu",
   "description": "Uses annotations to auto-generate documentation of business logic features in the code.",
-  "type": "library",
+  "type": "symfony-bundle",
   "keywords": [
     "symfony", "documentation", "annotations"
   ],
@@ -10,15 +10,15 @@
     "doctrine/common": "^3.1",
     "php": ">=7.3",
     "symfony/framework-bundle": "^5.0",
-    "symfony/http-client": "^5.2.1",
-    "symfony/twig-bundle": "^5.2.1",
-    "symfony/twig-pack": "1.*",
-    "twig/twig": "^3.2.1"
+    "symfony/http-client": "^5.0",
+    "symfony/twig-bundle": "^5.0"
   },
   "require-dev": {
     "friendsofphp/php-cs-fixer": "^2.16.7",
     "phpstan/phpstan": "^0.12.56",
-    "symfony/phpunit-bridge": "^4.4|^5.0"
+    "phpunit/phpunit": "^9.5.0",
+    "matthiasnoback/symfony-dependency-injection-test": "^4.2",
+    "nyholm/symfony-bundle-test": "^1.6"
   },
   "license": "MIT",
   "authors": [
@@ -27,7 +27,7 @@
       "email": "mail@steveolotu.com"
     }
   ],
-  "minimum-stability": "dev",
+  "minimum-stability": "stable",
   "autoload": {
     "psr-4": {
       "SteveOlotu\\FeatureDocu\\": "src/"
