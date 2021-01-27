@@ -145,32 +145,36 @@ $featureDocu->getOutputHtml();
 
 #### Output a "table of contents"-list of identifiers
 
+Assume there are several references with the two identifiers `backup/create` and `backup/delete`.
+
 - Array: List of features
 
-Format:
+The following code:
+```php
+$featureDocu->getFeatureListNestedArray();
+```
+...will generate an array in the format:
 ```
 ['backup' => [
     ['create' => true],
-    ['update' => true],
+    ['delete' => true],
 ]
  ```
 Note: The value "true" is only a placeholder. The useful data is stored in the keys.
  
-```php
-$featureDocu->getFeatureListNestedArray();
-```
 - Html: A hierarchically indented and numbered list
 
-For example:
+The following code:
+```php
+$featureDocu->getFeatureListHtmlList();
+```
+...will generate a nested `<ul>`-HTML list:
 ```
 1 backup
  1.1 create
  1.2 delete
  ```
- 
-```php
-$featureDocu->getFeatureListHtmlList();
-```
+Note: The lowest level entries (those which represent actual identifiers, here: `create` and `backup`) are links to the sections in the HTML reference table (which needs to be on the same page in order for the connection to work). 
 
 #### Internally used output formats
 
