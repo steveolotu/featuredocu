@@ -31,7 +31,7 @@
                 {% set level = prefix ~ index ~ '.' %}
                 {% set featureList = subElements %}
                 {% set parentString = completeFeatureString ~ '/' %}
-                {% include 'featureListHtml.html.twig' with [featureList, level, parentString] %}
+                {% include 'featureDocuFeatureListHtml.html.twig' with [featureList, level, parentString] %}
             {% endif %}
         </li>
         {% set index = index + 1 %}

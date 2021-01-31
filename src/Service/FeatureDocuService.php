@@ -74,7 +74,7 @@ class FeatureDocuService
         $contentArray = $this->getOutputArray();
 
         return $this->twig->render(
-            'outputHtml.html.twig',
+            'featureDocuOutputHtml.html.twig',
             ['contentArray' => $contentArray]
         );
     }
@@ -103,7 +103,7 @@ class FeatureDocuService
     public function getFeatureListHtmlList(bool $links = true): string
     {
         return $this->twig->render(
-            'templates/featureListHtml.html.twig',
+            'featureDocuFeatureListHtml.html.twig',
             [
                 'featureList' => $this->getFeatureListNestedArray(),
                 'links' => $links,
